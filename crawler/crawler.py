@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 
 
 URL = 'https://www.wikihow.com/Special:Randomizer'
-NUM_OF_PAGES = 10
+NUM_OF_PAGES = 100
 PAGES_DIRECTORY = 'pages'
 INDEX_FILE_NAME = 'index.csv'
 INDEX_FILE_DELIMITER = ';'
-DELAY_IN_SECONDS = 1
+DELAY_IN_SECONDS = 0
 BANNED_WORD_LINES = ['Advertisement', 'Research source', 'X']
 
 
@@ -47,17 +47,17 @@ def write_page_to_file(file, page):
     file.write(f'{author}\n')
     file.write(f'{date}\n')
     for line in intro.splitlines():
-        if line_is_invalid(line):
+        if is_line_invalid(line):
             continue
         file.write(f'{line.strip()}\n')
     for section in sections:
         for line in section.text.splitlines():
-            if line_is_invalid(line):
+            if is_line_invalid(line):
                 continue
             file.write(f'{line.strip()}\n')
 
 
-def line_is_invalid(line):
+def is_line_invalid(line):
     return len(line.strip()) == 0 or line in BANNED_WORD_LINES
 
 
@@ -74,7 +74,8 @@ if __name__ == '__main__':
     while i < NUM_OF_PAGES:
         page = requests.get(URL)
         url = requests.utils.unquote(page.url)
-        name = re.sub('[^0-9a-zA-Z]+', '-', url.split('/')[-1])
+        name = url
+        # name = re.sub('[^0-9a-zA-Z]+', '-', url.split('/')[-1])
         # checking if page already exists
         if name in names:
             continue
@@ -82,11 +83,11 @@ if __name__ == '__main__':
         names.append(name)
         i += 1
 
-        page_file_name = f'{PAGES_DIRECTORY}/{str(i)}_{name}.html'
+        page_file_name = f'{PAGES_DIRECTORY}/page_{str(i)}.html'
         with open(page_file_name, 'w', encoding='utf-8') as page_file:
             write_page_to_file(page_file, page.text)
 
-        index_file.write(f'{page_file_name}{INDEX_FILE_DELIMITER}{name}\n')
+        index_file.write(f'{page_file_name}{INDEX_FILE_DELIMITER}{url}\n')
         time.sleep(DELAY_IN_SECONDS)
 
     index_file.close()
