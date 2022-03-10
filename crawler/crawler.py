@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 URL = 'https://www.wikihow.com/Special:Randomizer'
 NUM_OF_PAGES = 100
 PAGES_DIRECTORY = 'pages'
+PAGE_PREFIX = 'page_'
 INDEX_FILE_NAME = 'index.csv'
 INDEX_FILE_DELIMITER = ';'
 DELAY_IN_SECONDS = 0
@@ -83,7 +84,7 @@ if __name__ == '__main__':
         names.append(name)
         i += 1
 
-        page_file_name = f'{PAGES_DIRECTORY}/page_{str(i)}.html'
+        page_file_name = f'{PAGES_DIRECTORY}/{PAGE_PREFIX}{str(i)}.html'
         with open(page_file_name, 'w', encoding='utf-8') as page_file:
             write_page_to_file(page_file, page.text)
 
