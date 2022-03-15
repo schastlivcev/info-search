@@ -1,0 +1,92 @@
+How to Reset Your Windows Password on Windows XP or Windows Vista Operating Systems
+Jack Lloyd
+Last Updated: September 16, 2021
+This wikiHow teaches you how to reset a forgotten Windows password. You can do this by using the default, hidden administrator account, or you can use a password reset or installation disc on Windows Vista or Later if you have one.
+Part 1
+Part 1 of 3:Opening the Admin Account
+1
+Restart your computer. Open Start, click the  Power icon, and then click Restart.
+2
+Press the "advanced options" key. This is typically the F8 key, though your computer's key may vary. Pressing this key when prompted during the restart period will open the advanced options menu.
+You'll see the option to open "advanced options" or "boot options" (or even "advanced settings") at the bottom of the screen when your computer is restarting.
+3
+Select Safe Mode and press ↵ Enter. This will prompt your computer to restart in Safe Mode.
+4
+Select your operating system if prompted. On Windows XP, you may be prompted to select your operating system; if so, just press ↵ Enter.
+5
+Wait for the accounts page to load. You should see at least two accounts here: your usual account, and the Administrator account.
+The Admin account usually has an image of a chess piece on it.
+6
+Click Admin or Administrator. This will log you into the account. You should now be at the desktop.
+Part 2
+Part 2 of 3:Resetting the Password
+1
+Open Start . Click the Windows logo (or Start on Windows XP) in the bottom-left corner of the screen.
+2
+Click Run…. It's an envelope icon on the right side of the Start window. A small window will open.
+On Windows Vista, you can type in run if you don't see Run in the Start menu.
+3
+Type in cmd. This is the command to open Command Prompt.
+4
+Click OK. It's at the bottom of the Run window. Doing so will open Command Prompt.
+5
+Enter the password reset command. Type in net user username new_password, where "username" is the username for the account whose password you forgot and "new_password" is the new password that you want to assign.
+For example: to change the password to "pupper123" for an account named "hugsky", you would enter net user hugsky pupper123 here.
+6
+Press ↵ Enter. This will immediately change the password for the selected account.
+7
+Restart your computer again. Once your computer has restarted back to the login screen, you should be able to select your account and input your new password.
+Part 3
+Part 3 of 3:Using a Recovery Disc on Windows NT 6.0 (Vista) or Later
+1
+Find a Windows installation or recovery disc. In order to perform this method, you will need to enter the Recovery Console, which can only be accessed with a Windows Vista or later installation or recovery disc.
+You can download a Windows Vista ISO file and burn it to a DVD.
+The installation disc doesn't need to be the one you use to install your operating system, but it does need to be for the same version of Windows.
+2
+Insert the installation disc into your computer. The disc must go label-side-up in your computer's CD tray.
+3
+Restart your computer. Click the upward-facing arrow next to the  Power icon, then click Restart in the pop-up menu.
+4
+Press your computer's BIOS key. As soon as your computer begins restarting, start pressing the BIOS key. This key will be listed at the bottom of the screen.
+If you can't find the BIOS key, consult your computer's manual or look up the BIOS key for your computer's model online.
+5
+Select the "Boot" tab. Use the arrow keys to move over to the "Boot" or "Startup" tab.
+Skip this step if you don't see a Boot tab.
+6
+Change the boot order. Select the Disc, Disc Drive, or similar option, then press the + key until the selected option is at the top.
+7
+Save your settings and exit the BIOS. There's usually a key that you can press to do so; look for the "Save and Exit" key on the right side of the screen.
+You may have to confirm this decision by pressing ↵ Enter when prompted.
+8
+Press any key when prompted. Doing so will launch the Windows Recovery window.
+9
+Click Next. This option is in the bottom-right corner of the window.
+10
+Click Repair your computer. It's in the bottom-left corner of the window.
+11
+Select Windows Vista, then click Next. You'll find this in the middle of the window.
+12
+Click Command Prompt. It's in the middle of the screen. Doing so will open the Command Prompt app.
+13
+Enter the "utilman" command. Type in c:\windows\system32\utilman.exe c:\ and press ↵ Enter.
+If your operating system is installed on the "D:" drive, type in d:\windows\system32\utilman.exe d:\ instead.
+14
+Enter the next command. Type in copy c:\windows\system32\cmd.exe c:\windows\system32\utilman.exe and press ↵ Enter.
+15
+Enter the final command. Type in y and press ↵ Enter. This will indicate a "Yes" response, which enables Command Prompt on the Windows login screen.
+16
+Remove the installation or recovery disc, then reboot your computer. Once the computer finishes rebooting, you should be back at the login screen.
+17
+Click the "Accessibility" button. It's the blue, dial-shaped option in the bottom-left or bottom-right corner of the screen. Doing so will open the Command Prompt app.
+18
+Enter the password reset command. Type in net user username new_password, where "username" is the username for the account whose password you forgot and "new_password" is the new password that you want to assign.
+For example: to change the password to "ilikelemons" for an account named "citruslover", you would enter net user citruslover ilikelemons here.
+19
+Press ↵ Enter. This will immediately change the password for the selected account.
+20
+Log in with your new password. Select your user account and enter the new password that you just set. You should be able to access the account now.
+As soon as you run the command, your new password will be ready to go—you don't need to restart your computer.
+Tips
+The Admin account is rarely password-protected. Unless another user purposefully added a password to this account, you should almost always be able to use the Admin account to bypass the password entry on Vista or XP.
+Warnings
+Resetting the password for any computer other than your own without permission is illegal.

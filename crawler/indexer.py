@@ -1,4 +1,5 @@
 import os
+from tokenizer import tokenize
 
 
 PAGES_DIRECTORY = 'pages'
@@ -11,7 +12,7 @@ def create_inverted_index(lemmas_map):
     inverted_index = {}
     for file in os.listdir(PAGES_DIRECTORY):
         with open(f'{PAGES_DIRECTORY}/{file}', 'r', encoding='utf-8') as page:
-            page_content = page.read()
+            page_content = tokenize(page.read())
             for lemma, tokens in lemmas_map.items():
                 for token in tokens:
                     if token in page_content:
