@@ -5,3 +5,4 @@
 2. ` python tokenizer.py `
 3. ` python indexer.py `
 4. ` python bool_searcher.py `
+5. ` python tf_idfer.py `
