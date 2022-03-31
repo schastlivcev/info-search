@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ query or 'WikiHow vector search' }}</title>
+    <style>
+        input { font-size: 1.1rem; }
+        b { font-size: 1.1rem; }
+        p { margin: 0.5rem 0 0.5rem 0; }
+    </style>
+</head>
+<body>
+<h1>WikiHow vector search</h1>
+<form action="/" method="get">
+    <div style="display: table-cell; width: 100%">
+        <label>
+            <input name="query" value="{{ query or '' }}" placeholder="Enter your search query" type="search" style="width: 100%">
+        </label>
+    </div>
+    <div style="display: table-cell">
+        <input type="submit" value="Search" style="margin-left: 8px">
+    </div>
+</form>
+<br>
+{% for item in result %}
+<p><b>{{ item['index'] }}.
+    <a href="{{ item['url'] }}" target="_blank">{{ item['name'] }}</a></b>
+    &nbsp;&nbsp;<i style="color: gray">(score={{ item['cs']|round(4, 'floor') }})</i></p>
+<p style="color: dimgray"><i>{{ item['date'] }}Written by: {{ item['author'] }}</i></p>
+<p style="margin-bottom: 1.2rem">{{ item['preview'] }}</p>
+{% endfor %}
+</body>
+</html>
