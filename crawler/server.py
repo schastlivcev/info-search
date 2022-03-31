@@ -3,9 +3,10 @@ from flask import Flask, render_template, request
 from vector_searcher import preprocess_query, find_suitable_pages, url_index
 
 
-PORT = 8000
+PORT = 8080
 MIN_SCORE = 0.4
 PAGES_DIRECTORY = 'pages'
+
 
 app = Flask(__name__)
 
