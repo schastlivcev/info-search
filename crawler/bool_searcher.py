@@ -17,7 +17,7 @@ if __name__ == '__main__':
     scan_nltk_packages()
     lemmatizer = WordNetLemmatizer()
 
-    num_of_pages = sum(1 for line in open(INDEX_FILE_NAME))
+    num_of_pages = sum(1 for line in open(INDEX_FILE_NAME))  # len(os.listdir(PAGES_DIRECTORY))
     all_pages = set(range(1, num_of_pages))
 
     index = {}

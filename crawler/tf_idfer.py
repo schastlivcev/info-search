@@ -10,7 +10,6 @@ LEMMAS_TF_IDF_DIRECTORY = 'lemmas_tf_idf'
 PAGES_DIRECTORY = 'pages'
 TOKENS_FILE_NAME = 'tokens.txt'
 LEMMAS_FILE_NAME = 'lemmas.txt'
-NLTK_PACKAGES = ['tokenizers/punkt', 'corpora/stopwords', 'corpora/wordnet', 'corpora/omw-1.4']
 
 
 def count_tf(pages, page_counters, corpus):
