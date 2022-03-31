@@ -13,7 +13,40 @@ INDEX_FILE_NAME = 'index.csv'
 INDEX_FILE_DELIMITER = ';'
 
 
-def preprocess_query(query, lemmas_idf):
+scan_nltk_packages()
+lemmatizer = WordNetLemmatizer()
+
+url_index = []
+with open(INDEX_FILE_NAME, 'r', encoding='utf-8') as index_file:
+    for line in index_file.readlines()[1:]:
+        values = line.split(INDEX_FILE_DELIMITER)
+        url_index.append(values[-1].strip())
+
+lemmas = set()
+with open(LEMMAS_FILE_NAME, 'r', encoding='utf-8') as lemmas_file:
+    for line in lemmas_file.readlines():
+        values = line.strip().split(' ')
+        lemmas.add(values[0].replace(':', ''))
+
+lemma_page_scores = {lemma: [] for lemma in lemmas}
+for file in sorted(os.listdir(LEMMAS_TF_IDF_DIRECTORY), key=len):
+    with open(f'{LEMMAS_TF_IDF_DIRECTORY}/{file}', 'r', encoding='utf-8') as page:
+        for line in page.readlines():
+            lemma_page_score = line.split()
+            lemma = lemma_page_score[0]
+            tf_idf = float(lemma_page_score[-1])
+            lemma_page_scores[lemma].append(tf_idf)
+
+lemmas_idf = dict.fromkeys(lemmas)
+with open(f'{LEMMAS_TF_IDF_DIRECTORY}/{os.listdir(LEMMAS_TF_IDF_DIRECTORY)[0]}', 'r', encoding='utf-8') as page:
+    for line in page.readlines():
+        lemma_page_score = line.split()
+        lemma = lemma_page_score[0]
+        idf = float(lemma_page_score[-2])
+        lemmas_idf[lemma] = idf
+
+
+def preprocess_query(query):
     tokenized = tokenize(query)
     lemmatized = Counter(list(map(lambda t: lemmatizer.lemmatize(t), tokenized)))
 
@@ -28,7 +61,7 @@ def preprocess_query(query, lemmas_idf):
     return query_tf_idf
 
 
-def find_suitable_pages(query_tf_idf, lemma_page_scores):
+def find_suitable_pages(query_tf_idf):
     num_of_pages = len(os.listdir(LEMMAS_TF_IDF_DIRECTORY))
     empty_list = [0.0 for _ in range(num_of_pages)]
     query_matrix = [[0.0 for x in range(len(query_tf_idf))] for y in range(num_of_pages)]
@@ -56,41 +89,9 @@ def cosine_similarity(a, b):
 
 
 if __name__ == '__main__':
-    scan_nltk_packages()
-    lemmatizer = WordNetLemmatizer()
-
     print("WikiHow vector search\n"
           f"Type words separated by space.\n"
           "Type '/q' to exit.")
-
-    url_index = []
-    with open(INDEX_FILE_NAME, 'r', encoding='utf-8') as index_file:
-        for line in index_file.readlines()[1:]:
-            values = line.split(INDEX_FILE_DELIMITER)
-            url_index.append(values[-1].strip())
-
-    lemmas = set()
-    with open(LEMMAS_FILE_NAME, 'r', encoding='utf-8') as lemmas_file:
-        for line in lemmas_file.readlines():
-            values = line.strip().split(' ')
-            lemmas.add(values[0].replace(':', ''))
-
-    lemma_page_scores = {lemma: [] for lemma in lemmas}
-    for file in sorted(os.listdir(LEMMAS_TF_IDF_DIRECTORY), key=len):
-        with open(f'{LEMMAS_TF_IDF_DIRECTORY}/{file}', 'r', encoding='utf-8') as page:
-            for line in page.readlines():
-                lemma_page_score = line.split()
-                lemma = lemma_page_score[0]
-                tf_idf = float(lemma_page_score[-1])
-                lemma_page_scores[lemma].append(tf_idf)
-
-    lemmas_idf = dict.fromkeys(lemmas)
-    with open(f'{LEMMAS_TF_IDF_DIRECTORY}/{os.listdir(LEMMAS_TF_IDF_DIRECTORY)[0]}', 'r', encoding='utf-8') as page:
-        for line in page.readlines():
-            lemma_page_score = line.split()
-            lemma = lemma_page_score[0]
-            idf = float(lemma_page_score[-2])
-            lemmas_idf[lemma] = idf
 
     while True:
         print('Your query: ', end='')
@@ -98,11 +99,11 @@ if __name__ == '__main__':
         if query.strip() == '/q':
             break
 
-        query_tf_idf = preprocess_query(query, lemmas_idf)
+        query_tf_idf = preprocess_query(query)
         # show tf-idf for query
         # print(f'TF-IDF: {query_tf_idf}')
 
-        suitable_page_scores, suitable_pages = find_suitable_pages(query_tf_idf, lemma_page_scores)
+        suitable_page_scores, suitable_pages = find_suitable_pages(query_tf_idf)
 
         zero_score_index = 0
         for index, score in enumerate(suitable_page_scores):
