@@ -7,3 +7,4 @@
 4. ` python bool_searcher.py `
 5. ` python tf_idfer.py `
 6. ` python vector_searcher.py `
+7. ` python server.py ` - final website demo
